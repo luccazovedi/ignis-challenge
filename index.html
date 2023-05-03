@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="PT">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Torneio de Futebol</title>
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4">Brasileirão Assaí 2023</h1>
+    <div class="form-group">
+      <label for="times">Times participantes:</label>
+      <textarea
+        id="times"
+        class="form-control"
+        rows="10"
+        placeholder="Digite os times e seus estados separados por ';'
+Exemplo:
+(Time ; Estado)
+Corinthians; São Paulo"
+      ></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="gerarTorneio()">
+      Gerar Torneio
+    </button>
+    <div id="jogosContainer" style="display: none">
+      <h2 class="mt-4">Combinação de Jogos</h2>
+      <div id="jogos" class="row"></div>
+    </div>
+  <script src="script.js"></script>
+</body>
+</html>
