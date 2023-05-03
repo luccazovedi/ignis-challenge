@@ -1,8 +1,26 @@
 function gerarTorneio() {
   var timesTextArea = document.getElementById('times');
   var times = timesTextArea.value.trim().split('\n');
-
+  
   var jogos = [];
+  var avisoTimes = document.getElementById('avisoTimes');
+  var avisoCardBody = avisoTimes.querySelector('.card-body');
+
+  if (times.length < 2) {
+    avisoCardBody.classList.remove('slide-out');
+    avisoCardBody.classList.add('slide-in');
+    avisoTimes.style.display = 'block';
+
+    setTimeout(function () {
+      avisoCardBody.classList.remove('slide-in');
+      avisoCardBody.classList.add('slide-out');
+      setTimeout(function () {
+        avisoTimes.style.display = 'none';
+      }, 300);
+    }, 3000);
+
+    return;
+  }
 
   for (var i = 0; i < times.length; i++) {
     var timeA = times[i].split(';')[0].trim();
@@ -30,17 +48,11 @@ function gerarTorneio() {
   jogosDiv.innerHTML = '';
 
   var row = document.createElement('div');
-  row.classList.add('row');
-
-  var rodada1Div = document.createElement('div');
-  rodada1Div.classList.add('col-md-6');
-
-  var rodada2Div = document.createElement('div');
-  rodada2Div.classList.add('col-md-6');
+  row.classList.add('row', 'row-cols-1', 'row-cols-md-2', 'row-cols-lg-2');
 
   for (var i = 0; i < jogos.length; i++) {
     var jogoDiv = document.createElement('div');
-    jogoDiv.classList.add('card', 'mb-3');
+    jogoDiv.classList.add('card', 'mb-3', 'col');
 
     var jogoCardBody = document.createElement('div');
     jogoCardBody.classList.add('card-body');
@@ -52,13 +64,34 @@ function gerarTorneio() {
     jogoCardBody.appendChild(jogoText);
     jogoDiv.appendChild(jogoCardBody);
 
-    if (jogos[i].includes('Rodada 1')) {
-      rodada1Div.appendChild(jogoDiv);
-    } else if (jogos[i].includes('Rodada 2')) {
-      rodada2Div.appendChild(jogoDiv);
-    }
+    row.appendChild(jogoDiv);
   }
-  row.appendChild(rodada1Div);
-  row.appendChild(rodada2Div);
   jogosDiv.appendChild(row);
+
+
+  var classificacaoContainer = document.getElementById(
+    'classificacaoContainer'
+  );
+  classificacaoContainer.style.display = 'block';
+
+  var classificacaoDiv = document.getElementById('classificacao');
+  classificacaoDiv.innerHTML = '';
+
+  var table = document.createElement('table');
+  table.classList.add('table', 'table-striped');
+
+  // Cabeçalho da tabela
+  var thead = document.createElement('thead');
+  thead.innerHTML = `
+<tr>
+  <th>Posição</th>
+  <th>Time</th>
+  <th>Pontos</th>
+  <th>Vitórias</th>
+  <th>Derrotas</th>
+  <th>Empates</th>
+</tr>
+`;
+  table.appendChild(thead);
+
 }
