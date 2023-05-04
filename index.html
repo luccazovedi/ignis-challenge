@@ -1,49 +1,159 @@
 <!DOCTYPE html>
 <html lang="PT">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Torneio de Futebol</title>
-  <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-  />
-</head>
-<body>
-  <div class="container">
-    <h1 class="mt-4">Brasileirão Assaí 2023</h1>
-    <div class="form-group">
-      <label for="times">Times participantes:</label>
-      <textarea
-        id="times"
-        class="form-control"
-        rows="10"
-        placeholder="Digite os times e seus estados separados por ';'
-Exemplo:
+  <head>
+    <meta charset="UTF-8" />
+    <title>Torneio de Times de Futebol</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Simule partidas do Brasileirão 2023" />
+    <meta name="keywords" content="javascript, futebol, jogo, simular, partida" />
+
+    <meta property="og:title" content="Torneio de Futebol" />
+    <meta property="og:description" content="Simule partidas do Brasileirão 2023" />
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/899/899924.png" />
+ 
+    <!-- Estilização da Barra de Scroll -->
+    <style>
+      ::-webkit-scrollbar {width: 10px;  }
+      ::-webkit-scrollbar-track {background: #f1f1f1;}    
+      ::-webkit-scrollbar-thumb {background: #888;}
+      ::-webkit-scrollbar-thumb:hover {background: #555;}
+    </style>
+   
+   <!-- Links-->
+   <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://cdn-icons-png.flaticon.com/512/1503/1503354.png"
+    />
+  </head>
+  <body>
+    <!-- Barra de Navegação-->
+    <nav
+      class="navbar navbar-expand-sm fixed-top"
+      style="background-color: #2cad27"
+    >
+      <div class="container-fluid">
+        <h2 style="
+          font-family: system-ui;
+          font-weight: 900;" 
+          >TORNEIO DE TIMES</h2>
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/899/899924.png"
+            alt="Logo de Futebol"
+            width="50"
+            height="50"
+            id="logo"
+          />
+        </a>
+      </div>
+    </nav>
+
+    <!-- Conteúdo da Página-->
+    <div class="container" style="margin-top: 6rem;">
+      <h2 style="font-family: sans-serif; font-weight:600;">Faça seu Torneio!</h2>
+      <h6 style="font-family: sans-serif; font-style: italic;">Digite os Times participantes e seus Estados separados por ';'</h6>
+      <div class="form-group">
+        <textarea
+          styl="font-family: sans-serif;"
+          id="times"
+          class="form-control"
+          rows="10"
+          placeholder="Exemplo:
 (Time ; Estado)
 Corinthians; São Paulo"
-      ></textarea>
-    </div>
-    <button class="btn btn-primary" onclick="gerarTorneio()">
-      Gerar Torneio
-    </button>
-    <div id="jogosContainer" style="display: none">
-      <h2 class="mt-4">Combinação de Jogos</h2>
-      <div id="jogos" class="row"></div>
-    </div>
-     <div id="classificacaoContainer" style="display: none">
+        ></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="gerarTorneio()">
+        Gerar Torneio
+      </button>
+      <div id="jogosContainer" style="display: none">
+        <h2 class="mt-4">Combinação de Jogos</h2>
+        <div
+          id="jogos"
+          class="
+            row row-cols-1 row-cols-md-2 row-cols-lg-2
+            justify-content-center
+          "
+        >
+          <div class="card mb-3 col-6 p-2"></div>
+        </div>
+      </div>
+      <div id="classificacaoContainer" style="display: none">
         <h2 class="mt-3">Classificação</h2>
         <div id="classificacao" class="table-responsive"></div>
       </div>
-    <div
-      id="avisoTimes"
-      class="alert alert-danger alert-dismissible fade show fixed-bottom mb-3"
-      style="max-width: 18rem; display: none"
-    >
-      <div class="card-body slide-out">
-        <p class="card-text">Digite ao menos 2 times!</p>
+      <div
+        id="avisoTimes"
+        class="alert alert-danger alert-dismissible fade show fixed-bottom mb-3"
+        style="
+        display: none;
+        position: relative;
+        top: 19px;"
+      >
+        <div class="card-body slide-out">
+          <p class="card-text">Digite ao menos 2 times!</p>
+        </div>
       </div>
     </div>
-  <script src="script.js"></script>
-</body>
+
+    <!-- Rodapé -->
+      <footer class="text-center text-white" style="background-color: #f1f1f1; margin-top: 4rem;">
+        <div class="container pt-2">
+          <section class="mb-2">
+            <!-- Google -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-dark m-1"
+              href="mail.to:luccazovedi@gmail.com"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-google"></i
+            ></a>
+            <!-- Instagram -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-dark m-1"
+              href="https://www.instagram.com/luccazovedi"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <!-- Linkedin -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-dark m-1"
+              href="https://www.linkedin.com/in/luccazovedi"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <!-- Github -->
+            <a
+              class="btn btn-link btn-floating btn-lg text-dark m-1"
+              href="https://github.com/luccazovedi"
+              role="button"
+              data-mdb-ripple-color="dark"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+        </div>
+        <!-- Copyright -->
+        <div
+          class="text-center text-dark p-3"
+          style="background-color: rgba(0, 0, 0, 0.2)"
+        >
+          © 2023 Copyright: Torneio de Futebol. Todos os direitos reservados
+        </div>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
