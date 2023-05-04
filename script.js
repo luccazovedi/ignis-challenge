@@ -1,7 +1,7 @@
 function gerarTorneio() {
   var timesTextArea = document.getElementById('times');
   var times = timesTextArea.value.trim().split('\n');
-  
+
   var jogos = [];
   var avisoTimes = document.getElementById('avisoTimes');
   var avisoCardBody = avisoTimes.querySelector('.card-body');
@@ -68,6 +68,63 @@ function gerarTorneio() {
   }
   jogosDiv.appendChild(row);
 
+  var classificacao = {};
+
+  for (var i = 0; i < jogos.length; i++) {
+    var resultado = Math.floor(Math.random() * 3);
+    var mandante = jogos[i].split(' vs ')[0].trim();
+    var visitante = jogos[i].split(' vs ')[1].split(' - ')[0].trim();
+
+    if (!classificacao[mandante]) {
+      classificacao[mandante] = {
+        pontos: 0,
+        vitorias: 0,
+        derrotas: 0,
+        empates: 0,
+      };
+    }
+
+    if (!classificacao[visitante]) {
+      classificacao[visitante] = {
+        pontos: 0,
+        vitorias: 0,
+        derrotas: 0,
+        empates: 0,
+      };
+    }
+
+    if (resultado === 0) {
+      classificacao[mandante].pontos += 1;
+      classificacao[mandante].empates += 1;
+
+      classificacao[visitante].pontos += 1;
+      classificacao[visitante].empates += 1;
+    } else if (resultado === 1) {
+      classificacao[mandante].pontos += 3;
+      classificacao[mandante].vitorias += 1;
+      classificacao[visitante].derrotas += 1;
+    } else {
+      classificacao[visitante].pontos += 3;
+      classificacao[visitante].vitorias += 1;
+      classificacao[mandante].derrotas += 1;
+    }
+  }
+
+  var classificacaoArray = [];
+
+  for (var time in classificacao) {
+    classificacaoArray.push({
+      time: time,
+      pontos: classificacao[time].pontos,
+      vitorias: classificacao[time].vitorias,
+      derrotas: classificacao[time].derrotas,
+      empates: classificacao[time].empates,
+    });
+  }
+
+  classificacaoArray.sort(function (a, b) {
+    return b.pontos - a.pontos;
+  });
 
   var classificacaoContainer = document.getElementById(
     'classificacaoContainer'
@@ -80,7 +137,6 @@ function gerarTorneio() {
   var table = document.createElement('table');
   table.classList.add('table', 'table-striped');
 
-  // Cabeçalho da tabela
   var thead = document.createElement('thead');
   thead.innerHTML = `
 <tr>
@@ -94,4 +150,27 @@ function gerarTorneio() {
 `;
   table.appendChild(thead);
 
+  var tbody = document.createElement('tbody');
+  for (var i = 0; i < classificacaoArray.length; i++) {
+    var posicao = i + 1;
+    var time = classificacaoArray[i].time;
+    var pontos = classificacaoArray[i].pontos;
+    var vitorias = classificacaoArray[i].vitorias;
+    var derrotas = classificacaoArray[i].derrotas;
+    var empates = classificacaoArray[i].empates;
+
+    var row = document.createElement('tr');
+    row.innerHTML = `
+  <td>${posicao}</td>
+  <td>${time}</td>
+  <td>${pontos}</td>
+  <td style="color: #229e22;">${vitorias}</td>
+  <td style="color: #d13838;">${derrotas}</td>
+  <td style="color: #1f7da8;">${empates}</td>
+`;
+    tbody.appendChild(row);
+  }
+  table.appendChild(tbody);
+
+  classificacaoDiv.appendChild(table);
 }
